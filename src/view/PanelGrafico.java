@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -11,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.event.MouseInputListener;
 
 /**
@@ -24,8 +26,11 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
     private int posX = 20;
     private int posY = 20;
     private int angulo =0;
+    private final int margen = 50;
+    private final int ballWidth = 32;
+    private final int ballHeight=32;
     boolean aumentarX = true;
-    boolean aumentarY = true;
+    private ImageIcon fondo;
 
     public PanelGrafico() {
         initComponents();
@@ -42,19 +47,25 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
 
     @Override
     public void paint(Graphics g) {
+        
+        Dimension tamanio = this.getSize();
+        fondo = new ImageIcon(getClass().getResource("../img/background.jpg"));
+        g.drawImage(fondo.getImage(), 0, 0, tamanio.width,tamanio.height,null);
+        setOpaque(false);
+        
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.yellow);
-        g2d.fillOval(posX, posY, 50, 50);
+        g2d.fillOval(posX, posY, ballWidth, ballHeight);
         g2d.setColor(Color.BLUE);
-        g2d.drawOval(posX, posY, 50, 50);
+        g2d.drawOval(posX, posY, ballHeight, ballWidth);
         
         
         
 //        Toolkit t = Toolkit.getDefaultToolkit();
 //        Image img = t.getImage("resources/images/continuar.png");
-//        g2d.rotate(angulo*Math.PI/180, x, y);
-//        g2d.drawImage(img, x, y, this);
+//        g2d.rotate(angulo*Math.PI/180, posX, posY);
+//        g2d.drawImage(img, posX, posY, this);
 
 
         Thread hilo = new Thread(this);
@@ -92,15 +103,16 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
     @Override
     public void run() {
 
-//        if (x + 32 < this.getHeight() && aumentarX) {
-//            x++;
-//            System.out.println(x + "  " + aumentarX);
-//            aumentarX = true;
-//        } 
-        if (y + 32 < this.getHeight() && aumentarX) {
-            y=(y+1)%this.getHeight();
+        if (posX < this.getHeight()-margen && aumentarX) {
+            posX++;
+            System.out.println(x + "  " + aumentarX);
+            aumentarX = true;
+        }
+        if (posY < this.getHeight()-margen && aumentarX) {
+            //posY=(y+1)%this.getHeight();
+            posY++;
             System.out.println(y + "  " + aumentarX);
-            aumentarY = true;
+           
         } 
     }
 
@@ -147,8 +159,8 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
     @Override
     public void mouseClicked(MouseEvent me) {
 //        System.out.println("click");
-        posX=me.getX();
-        posY=me.getY();
+//        x=me.getX();
+//        y=me.getY();
     }
 
     @Override
@@ -175,8 +187,9 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
     public void mouseDragged(MouseEvent me) {
         
         System.out.println("dragged");
-        if((me.getX()>0 && me.getY()>=0)  && (me.getX()<=this.getWidth() && me.getY()>=this.getHeight()-100)){
-            
+        if((me.getX()>=margen-ballWidth && me.getY()>=margen-ballHeight)  && (me.getX()<=this.getWidth()-margen) && me.getY()<=this.getHeight()-margen){
+            posX=me.getX();
+           posY=me.getY();
         }
         
     }
