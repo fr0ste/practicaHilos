@@ -6,75 +6,48 @@ package entity;
 
 import java.awt.Color;
 
-/**
- *
- * @author labingsw05
- */
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import view.Game;
+
 public class Ball {
-    
-     private int posX, posY, size;
-        private Color color;
+	private static final int DIAMETER = 30;
+	int x = 0;
+	int y = 0;
+	int xa = 1;
+	int ya = 1;
+	private Game game;
 
-        private int vx = 5;
-        private int vy = 5;
+	public Ball(Game game) {
+		this.game= game;
+	}
 
-        public Ball(int posX, int posY, int size, Color color, int vx, int vy) {
-            this.posX = posX;
-            this.posY = posY;
-            this.size = size;
-            this.color = color;
-            this.vx = vx;
-            this.vy = vy;
-        }
+	public void move() {
+		if (x + xa < 0)
+			xa = 1;
+		if (x + xa > game.getWidth() - DIAMETER)
+			xa = -1;
+		if (y + ya < 0)
+			ya = 1;
+		if (y + ya > game.getHeight() - DIAMETER)
+			game.gameOver();
+		if (collision()){
+			ya = -1;
+			y = game.racquet.getTopY()- DIAMETER;
+		}
+		x = x + xa;
+		y = y + ya;
+	}
 
-    public int getPosX() {
-        return posX;
-    }
+	private boolean collision() {
+		return game.racquet.getBounds().intersects(getBounds());
+	}
 
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public int getVx() {
-        return vx;
-    }
-
-    public void setVx(int vx) {
-        this.vx = vx;
-    }
-
-    public int getVy() {
-        return vy;
-    }
-
-    public void setVy(int vy) {
-        this.vy = vy;
-    }
-        
-        
-    
+	public void paint(Graphics2D g) {
+		g.fillOval(x, y, DIAMETER, DIAMETER);
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, DIAMETER, DIAMETER);
+	}
 }
