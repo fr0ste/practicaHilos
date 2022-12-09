@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 public class Game extends JPanel {
 
-	   public Ball ball = new Ball(this);
-	   public Racquet racquet = new Racquet(this);
+	   public Ball ball = new Ball(this, 0,0);
+	  
 
 	public Game() {
 		addKeyListener(new KeyListener() {
@@ -24,12 +24,12 @@ public class Game extends JPanel {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				racquet.keyReleased(e);
+				//racquet.keyReleased(e);
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				racquet.keyPressed(e);
+				//racquet.keyPressed(e);
 			}
 		});
 		setFocusable(true);
@@ -37,7 +37,7 @@ public class Game extends JPanel {
 	
 	private void move() {
 		ball.move();
-		racquet.move();
+		
 	}
 
 	@Override
@@ -48,13 +48,9 @@ public class Game extends JPanel {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		ball.paint(g2d);
                 
-		racquet.paint(g2d);
+		
 	}
 	
-	public void gameOver() {
-		JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.YES_NO_OPTION);
-		System.exit(ABORT);
-	}
 
 	public static void main(String[] args) throws InterruptedException {
 		JFrame frame = new JFrame("Mini Tennis");

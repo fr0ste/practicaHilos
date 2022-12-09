@@ -18,8 +18,10 @@ public class Ball {
 	int ya = 1;
 	private Game game;
 
-	public Ball(Game game) {
+	public Ball(Game game, int x, int y) {
 		this.game= game;
+                this.x = x;
+                this.y = y;
 	}
 
 	public void move() {
@@ -30,18 +32,18 @@ public class Ball {
 		if (y + ya < 0)
 			ya = 1;
 		if (y + ya > game.getHeight() - DIAMETER)
-			game.gameOver();
-		if (collision()){
 			ya = -1;
-			y = game.racquet.getTopY()- DIAMETER;
-		}
+//		if (collision()){
+//			ya = -1;
+//			y = game.racquet.getTopY()- DIAMETER;
+//		}
 		x = x + xa;
 		y = y + ya;
 	}
 
-	private boolean collision() {
-		return game.racquet.getBounds().intersects(getBounds());
-	}
+//	private boolean collision() {
+//                return game.racquet.getBounds().intersects(getBounds());
+//	}
 
 	public void paint(Graphics2D g) {
 		g.fillOval(x, y, DIAMETER, DIAMETER);

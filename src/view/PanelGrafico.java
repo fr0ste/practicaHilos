@@ -39,7 +39,8 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
         this.addMouseMotionListener(this);
         this.setBounds(10, 10, 300, 300);
         this.setBackground(Color.MAGENTA);
-        this.setSize(300, 300);
+        this.setSize(500, 300);
+        
         
         this.addKeyListener(this); //agregar escucha al panel con los teclados
         this.setFocusable(true);
@@ -88,16 +89,8 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setBackground(new java.awt.Color(0, 0, 0));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
