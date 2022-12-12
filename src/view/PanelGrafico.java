@@ -34,7 +34,7 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
         this.addMouseMotionListener(this);
         this.setBounds(0, 0, 300, 300);
         this.setBackground(Color.MAGENTA);
-        this.setSize(400, 300);
+        this.setSize(500, 300);
         
         
         this.addKeyListener(this); //agregar escucha al panel con los teclados
@@ -174,12 +174,14 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
     @Override
     public void mouseDragged(MouseEvent me) {
         
-        System.out.println("dragged");
-        if((me.getX()>=margen-ballWidth && me.getY()>=margen-ballHeight)  && (me.getX()<=this.getWidth()-margen) && me.getY()<=this.getHeight()-margen){
-            posX=me.getX();
-           posY=me.getY();
-        }
         
+       if (me.getX()-margen> 0 && 
+               me.getX()+margen< this.getWidth() - ballWidth && 
+               me.getY()-margen > 0 && 
+               me.getY()+margen < this.getHeight()-ballHeight){
+           posX = me.getX();
+           posY = me.getY();
+       }    
     }
 
     @Override
