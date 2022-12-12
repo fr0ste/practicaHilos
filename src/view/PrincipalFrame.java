@@ -14,10 +14,12 @@ public class PrincipalFrame extends javax.swing.JFrame {
     
     public PrincipalFrame() {
         
+        
         panelGrafico = new PanelGrafico();
         this.add(this.panelGrafico);
-       
         initComponents();
+       
+        
         
         
         

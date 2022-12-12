@@ -2,6 +2,7 @@ package view;
 
 import entity.Ball;
 import entity.Racquet;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -13,7 +14,8 @@ import javax.swing.JPanel;
 
 public class Game extends JPanel {
 
-	   public Ball ball = new Ball(this, 0,0);
+	   public Ball ball = new Ball(this, 0,0, Color.BLUE);
+           public Ball ball2 = new Ball(this, 200,300, Color.GREEN);
 	  
 
 	public Game() {
@@ -37,6 +39,7 @@ public class Game extends JPanel {
 	
 	private void move() {
 		ball.move();
+                ball2.move();
 		
 	}
 
@@ -47,6 +50,12 @@ public class Game extends JPanel {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		ball.paint(g2d);
+                
+                
+		Graphics2D g2d2 = (Graphics2D) g;
+		g2d2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+                ball2.paint(g2d2);
                 
 		
 	}
@@ -61,11 +70,17 @@ public class Game extends JPanel {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		while (true) {
-			game.move();
-			game.repaint();
-			Thread.sleep(10);
+                    game.collision();	
+                    game.move();
+                    game.repaint();
+                        
+			Thread.sleep(20);
 		}
 	}
+
+    private void collision() {
+        ball.collision(ball2);
+    }
         
         
 }

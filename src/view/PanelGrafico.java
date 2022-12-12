@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -15,10 +13,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.event.MouseInputListener;
 
-/**
- *
- * @author labingsw05
- */
 public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyListener, MouseInputListener, MouseMotionListener {
 
     private int x = 20;
@@ -26,10 +20,11 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
     private int posX = 20;
     private int posY = 20;
     private int angulo =0;
-    private final int margen = 50;
+    private final int margen = 25;
     private final int ballWidth = 32;
     private final int ballHeight=32;
-    boolean aumentarX = true;
+    int direccionX = 1;
+    int direccionY = 1;
     private ImageIcon fondo;
 
     public PanelGrafico() {
@@ -37,9 +32,9 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
         
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-        this.setBounds(10, 10, 300, 300);
+        this.setBounds(0, 0, 300, 300);
         this.setBackground(Color.MAGENTA);
-        this.setSize(500, 300);
+        this.setSize(400, 300);
         
         
         this.addKeyListener(this); //agregar escucha al panel con los teclados
@@ -96,17 +91,17 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
     @Override
     public void run() {
 
-        if (posX < this.getHeight()-margen && aumentarX) {
-            posX++;
-            System.out.println(x + "  " + aumentarX);
-            aumentarX = true;
-        }
-        if (posY < this.getHeight()-margen && aumentarX) {
-            //posY=(y+1)%this.getHeight();
-            posY++;
-            System.out.println(y + "  " + aumentarX);
-           
-        } 
+       if (posX + direccionX-margen< 0)
+			direccionX = 1;
+		if (posX + direccionX +margen> this.getWidth() - ballWidth)
+			direccionX = -1;
+		if (posY + direccionY-margen < 0)
+			direccionY = 1;
+		if (posY + direccionY+margen > this.getHeight()-ballHeight)
+			direccionY = -1;
+		
+		posX = posX + direccionX;
+		posY = posY + direccionY;
     }
 
     @Override
