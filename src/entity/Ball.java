@@ -1,3 +1,11 @@
+/**
+ *
+ * Autor: Figueroa Martinez Joel Francisco
+ * Fecha creacion: 12/12/2022
+ * Fecha modificacion: 13/12/2022
+ * Descripcion: 
+ * 
+ */
 package entity;
 
 import java.awt.Color;

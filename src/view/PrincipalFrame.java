@@ -1,8 +1,8 @@
 /**
  *
- * Autor:
- * Fecha creacion:
- * Fecha modificacion:
+ * Autor: Figueroa Martinez Joel Francisco
+ * Fecha creacion: 08/12/2022
+ * Fecha modificacion: 3/12/2022
  * Descripcion: 
  * 
  */

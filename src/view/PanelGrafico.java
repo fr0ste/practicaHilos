@@ -1,3 +1,11 @@
+/**
+ *
+ * Autor: Figueroa Martinez Joel Francisco
+ * Fecha creacion: 08/12/2022
+ * Fecha modificacion: 13/12/2022
+ * Descripcion: 
+ * 
+ */
 package view;
 
 import entity.Ball;
@@ -116,9 +124,7 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
 
     @Override
     public void mouseClicked(MouseEvent me) {
-//        System.out.println("click");
-//        x=me.getX();
-//        y=me.getY();
+
     }
 
     @Override
