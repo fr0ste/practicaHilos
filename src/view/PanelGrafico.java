@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -16,51 +17,37 @@ import javax.swing.event.MouseInputListener;
 
 public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyListener, MouseInputListener, MouseMotionListener {
 
-
-    private int angulo =0;
-    private final int margen = 25;
-    private final int ballWidth = 32;
-    private final int ballHeight=32;
-
     private ImageIcon fondo;
-    Ball ball = new Ball(this, 20, 20, Color.yellow);
+    private ArrayList<Ball> balls = new ArrayList<>();
 
     public PanelGrafico() {
         initComponents();
-        
+
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.setBounds(0, 0, 300, 300);
         this.setBackground(Color.MAGENTA);
         this.setSize(500, 300);
-        
-        
+
+        createBalls(3);
+
         this.addKeyListener(this); //agregar escucha al panel con los teclados
         this.setFocusable(true);
+
     }
 
     @Override
     public void paint(Graphics g) {
-        
+
         Dimension tamanio = this.getSize();
         fondo = new ImageIcon(getClass().getResource("../img/background.jpg"));
-        g.drawImage(fondo.getImage(), 0, 0, tamanio.width,tamanio.height,null);
+        g.drawImage(fondo.getImage(), 0, 0, tamanio.width, tamanio.height, null);
         setOpaque(false);
-        
+
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-//        g2d.setColor(Color.yellow);
-//        g2d.fillOval(posX, posY, ballWidth, ballHeight);
-//        g2d.setColor(Color.BLUE);
-//        g2d.drawOval(posX, posY, ballHeight, ballWidth);
-            ball.paint(g2d);
-        
-        
-//        Toolkit t = Toolkit.getDefaultToolkit();
-//        Image img = t.getImage("resources/images/continuar.png");
-//        g2d.rotate(angulo*Math.PI/180, posX, posY);
-//        g2d.drawImage(img, posX, posY, this);
 
+        paintBalls(g2d);
 
         Thread hilo = new Thread(this);
         hilo.start();
@@ -70,7 +57,6 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
             Logger.getLogger(PanelGrafico.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-      
     }
 
     /**
@@ -88,49 +74,44 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
 
     @Override
     public void run() {
-
-      ball.move();
-      repaint();
+        moveBalls(balls);
+        repaint();
     }
 
     @Override
     public void keyTyped(KeyEvent ke) {
-        
+
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
         int codigo = ke.getExtendedKeyCode();
-        
-        if (codigo==ke.VK_UP) {
+
+        if (codigo == ke.VK_UP) {
             System.out.println("flecha arriba");
-            angulo=(angulo+90)%360;
+
         }
-        
-        
-        if (codigo==ke.VK_DOWN) {
+
+        if (codigo == ke.VK_DOWN) {
             System.out.println("flecha abajo");
-          
-            
+
         }
-        
-        
-        if (codigo==ke.VK_LEFT) {
+
+        if (codigo == ke.VK_LEFT) {
             System.out.println("flecha izquierda");
-            
+
         }
-        
-        
-        if (codigo==ke.VK_RIGHT) {
+
+        if (codigo == ke.VK_RIGHT) {
             System.out.println("flecha derecha");
-           
+
         }
-        
+
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        
+
     }
 
     @Override
@@ -142,40 +123,55 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
 
     @Override
     public void mousePressed(MouseEvent me) {
-        
+
     }
 
     @Override
     public void mouseReleased(MouseEvent me) {
-        
+
     }
 
     @Override
     public void mouseEntered(MouseEvent me) {
-        
+
     }
 
     @Override
     public void mouseExited(MouseEvent me) {
-        
+
     }
 
     @Override
     public void mouseDragged(MouseEvent me) {
-        
-        
-//       if (me.getX()-margen> 0 && 
-//               me.getX()+margen< this.getWidth() - ballWidth && 
-//               me.getY()-margen > 0 && 
-//               me.getY()+margen < this.getHeight()-ballHeight){
-//           posX = me.getX();
-//           posY = me.getY();
-//       }    
+
     }
 
     @Override
     public void mouseMoved(MouseEvent me) {
-        
+
+    }
+
+    private void createBalls(int numberBalls) {
+        for (int j = 0; j < numberBalls; j++) {
+            balls.add(new Ball(this, (int) (Math.random() * (this.getWidth()-30)),
+                     (int) (Math.random() * (this.getHeight()-30)),
+                    new Color((int) ((Math.random() * 255)), (int) (Math.random() * 255), (int) (Math.random() * 255))));
+        }
+    }
+
+    private void paintBalls(Graphics2D g2d) {
+        for (Ball ball : balls) {
+            ball.paint(g2d);
+        }
+    }
+
+    private void moveBalls(ArrayList<Ball> balls) {
+        for (int i = 0; i < balls.size(); i++) {
+            for (int j = i + 1; j < balls.size(); j++) {
+                balls.get(i).collision(balls.get(j));
+            }
+            balls.get(i).move();
+        }
     }
 
 
