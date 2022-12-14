@@ -3,7 +3,7 @@
  * Autor: Figueroa Martinez Joel Francisco
  * Fecha creacion: 12/12/2022
  * Fecha modificacion: 13/12/2022
- * Descripcion: 
+ * Descripcion: clase base de ball
  * 
  */
 package entity;
@@ -15,7 +15,10 @@ import java.awt.Rectangle;
 import javax.swing.JPanel;
 
 public class Ball {
-
+    
+    /**
+     * declaracion de variables
+     */
     private int posX = 20;
     private int posY = 20;
     private final int margen = 25;
@@ -25,14 +28,22 @@ public class Ball {
     int direccionY = 1;
     private JPanel panel;
     private Color color;
-
+    
+    /**
+     * costructor
+     * @param panel
+     * @param posX
+     * @param posY
+     * @param color 
+     */
     public Ball(JPanel panel, int posX, int posY, Color color) {
         this.panel = panel;
         this.posX = posX;
         this.posY = posY;
         this.color = color;
     }
-
+    
+    //getters && setters
     public int getPosX() {
         return posX;
     }
@@ -80,7 +91,11 @@ public class Ball {
     public void setColor(Color color) {
         this.color = color;
     }
-
+    
+    /**
+     * metodo que mueve la pelota solo dentro de un panel, haciendolo rebotar
+     * en las esquinas
+     */
     public void move() {
         if (posX + direccionX - margen < 0) {
             direccionX = 1;
@@ -98,7 +113,11 @@ public class Ball {
         posX = posX + direccionX;
         posY = posY + direccionY;
     }
-
+    
+    /**
+     * método que verifica la colision con otra pelota
+     * @param ball 
+     */
     public void collision(Ball ball) {
         if (ball.getBounds().intersects(this.getBounds())) {
             direccionY *= -1;
@@ -108,7 +127,11 @@ public class Ball {
 
         }
     }
-
+    
+    /**
+     * dibuja la pelota en un panel
+     * @param g 
+     */
     public void paint(Graphics2D g) {
         g.setColor(this.color);
         g.fillOval(posX, posY, this.ballWidth, this.ballHeight);
@@ -116,7 +139,11 @@ public class Ball {
         g.drawOval(posX, posY, ballHeight, ballWidth);
 
     }
-
+    
+    /**
+     * obtiene los bordes de la pelota
+     * @return 
+     */
     public Rectangle getBounds() {
         return new Rectangle(posX + ballWidth, posY + ballHeight, this.ballWidth, this.ballHeight);
     }
