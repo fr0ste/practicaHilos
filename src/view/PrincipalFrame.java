@@ -8,7 +8,7 @@
  */
 package view;
 
-import Utilities.Sound;
+import utilities.Sound;
 
 public class PrincipalFrame extends javax.swing.JFrame {
 

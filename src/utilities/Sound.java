@@ -5,10 +5,9 @@
  * 
  * Descripcion: clase de sonidos utilizados segun los eventos.
  * 
- * 
  */
 
-package Utilities;
+package utilities;
 
 import java.io.File;
 import java.io.IOException;
