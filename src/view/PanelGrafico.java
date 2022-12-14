@@ -24,13 +24,14 @@ import javax.swing.ImageIcon;
 import javax.swing.event.MouseInputListener;
 
 public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyListener, MouseInputListener, MouseMotionListener {
-
+    
+    private boolean play;
     private ImageIcon fondo;
     private ArrayList<Ball> balls = new ArrayList<>();
 
     public PanelGrafico() {
         initComponents();
-
+        play=true;
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         this.setBounds(0, 0, 300, 300);
@@ -56,15 +57,26 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
         Graphics2D g2d = (Graphics2D) g;
 
         paintBalls(g2d);
-
         Thread hilo = new Thread(this);
+        if(play){            
+        
         hilo.start();
+        
+        
+
+        }else{
+            hilo.interrupt();
+        }
+        
+         
         try {
             Thread.sleep(15);
         } catch (InterruptedException ex) {
             Logger.getLogger(PanelGrafico.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        repaint();
+            
     }
 
     /**
@@ -82,8 +94,7 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
 
     @Override
     public void run() {
-        moveBalls(balls);
-        repaint();
+       moveBalls(balls);
     }
 
     @Override
@@ -178,6 +189,10 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
             }
             balls.get(i).move();
         }
+    }
+    
+    public void setPlay(boolean play){
+        this.play = play;
     }
 
 
