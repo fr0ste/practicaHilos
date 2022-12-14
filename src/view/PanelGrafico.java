@@ -3,7 +3,7 @@
  * Autor: Figueroa Martinez Joel Francisco
  * Fecha creacion: 08/12/2022
  * Fecha modificacion: 13/12/2022
- * Descripcion: 
+ * Descripcion: panel que contiene el juego
  * 
  */
 package view;
@@ -13,38 +13,39 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.event.MouseInputListener;
 
-public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyListener, MouseInputListener, MouseMotionListener {
+
+public class PanelGrafico extends javax.swing.JPanel implements Runnable{
     
+    //declaracion de variables
     private boolean play;
     private ImageIcon fondo;
     private ArrayList<Ball> balls = new ArrayList<>();
-
+    
+    /**
+     * constructor
+     */
     public PanelGrafico() {
         initComponents();
         play=true;
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
         this.setBounds(0, 0, 300, 300);
         this.setBackground(Color.MAGENTA);
         this.setSize(500, 300);
 
         createBalls(3);
 
-        this.addKeyListener(this); //agregar escucha al panel con los teclados
         this.setFocusable(true);
 
     }
-
+    
+    /**
+     * método para dibujar en el panel
+     * @param g 
+     */
     @Override
     public void paint(Graphics g) {
 
@@ -55,20 +56,16 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
 
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-
         paintBalls(g2d);
+        
+        
         Thread hilo = new Thread(this);
-        if(play){            
-        
+        if(play){                   
         hilo.start();
-        
-        
-
         }else{
             hilo.interrupt();
         }
-        
-         
+       
         try {
             Thread.sleep(15);
         } catch (InterruptedException ex) {
@@ -91,83 +88,19 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
         setBackground(new java.awt.Color(0, 0, 0));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * método que gestiona hilo
+     */
     @Override
     public void run() {
        moveBalls(balls);
     }
-
-    @Override
-    public void keyTyped(KeyEvent ke) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        int codigo = ke.getExtendedKeyCode();
-
-        if (codigo == ke.VK_UP) {
-            System.out.println("flecha arriba");
-
-        }
-
-        if (codigo == ke.VK_DOWN) {
-            System.out.println("flecha abajo");
-
-        }
-
-        if (codigo == ke.VK_LEFT) {
-            System.out.println("flecha izquierda");
-
-        }
-
-        if (codigo == ke.VK_RIGHT) {
-            System.out.println("flecha derecha");
-
-        }
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
-
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent me) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent me) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent me) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent me) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent me) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent me) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent me) {
-
-    }
-
+    
+    /**
+     * método que crea una lista de pelotas con valores aleatorios
+     * @param numberBalls 
+     */
     private void createBalls(int numberBalls) {
         for (int j = 0; j < numberBalls; j++) {
             balls.add(new Ball(this, (int) (Math.random() * (this.getWidth()-30)),
@@ -175,13 +108,21 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
                     new Color((int) ((Math.random() * 255)), (int) (Math.random() * 255), (int) (Math.random() * 255))));
         }
     }
-
+    
+    /**
+     * metodo que agrega las pelotas al panel
+     * @param g2d 
+     */
     private void paintBalls(Graphics2D g2d) {
         for (Ball ball : balls) {
             ball.paint(g2d);
         }
     }
-
+    
+    /**
+     * metodo para mover las pelotas
+     * @param balls 
+     */
     private void moveBalls(ArrayList<Ball> balls) {
         for (int i = 0; i < balls.size(); i++) {
             for (int j = i + 1; j < balls.size(); j++) {
@@ -191,6 +132,10 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable, KeyLis
         }
     }
     
+    /**
+     * método para pausar o poner en play el juego
+     * @param play 
+     */
     public void setPlay(boolean play){
         this.play = play;
     }
