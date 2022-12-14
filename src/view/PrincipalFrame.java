@@ -4,20 +4,20 @@
  * Fecha creacion: 08/12/2022
  * Fecha modificacion: 14/12/2022
  * Descripcion: ventana pricipal
- * 
+ *
  */
 package view;
 
 import Utilities.Sound;
 
 public class PrincipalFrame extends javax.swing.JFrame {
-    
+
     //declaracion de variables
     private final PanelGrafico panelGrafico;
-    
+
     //constructor
-    public PrincipalFrame() {        
-        
+    public PrincipalFrame() {
+
         panelGrafico = new PanelGrafico();
         this.add(this.panelGrafico);
         initComponents();
@@ -83,34 +83,38 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * Otorga el evento de mouse clicked al boton play
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnPlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPlayMouseClicked
         panelGrafico.setPlay(true);
     }//GEN-LAST:event_btnPlayMouseClicked
-    
+
     /**
      * Otorga el evento de mouse clicked al boton pause
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnPauseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPauseMouseClicked
-         panelGrafico.setPlay(false);
+        panelGrafico.setPlay(false);
     }//GEN-LAST:event_btnPauseMouseClicked
-    
+
     /**
      * otorga evento de mouse entered al boton play
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnPlayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPlayMouseEntered
         Sound.mousePass();
     }//GEN-LAST:event_btnPlayMouseEntered
-    
+
     /**
      * otorga evento de mouse entered al boton pause
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnPauseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPauseMouseEntered
         Sound.mousePass();

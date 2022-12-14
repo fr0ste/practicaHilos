@@ -4,7 +4,7 @@
  * Fecha creacion: 08/12/2022
  * Fecha modificacion: 13/12/2022
  * Descripcion: panel que contiene el juego
- * 
+ *
  */
 package view;
 
@@ -18,20 +18,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
+public class PanelGrafico extends javax.swing.JPanel implements Runnable {
 
-public class PanelGrafico extends javax.swing.JPanel implements Runnable{
-    
     //declaracion de variables
     private boolean play;
     private ImageIcon fondo;
-    private ArrayList<Ball> balls = new ArrayList<>();
-    
+    private final ArrayList<Ball> balls = new ArrayList<>();
+
     /**
      * constructor
      */
     public PanelGrafico() {
         initComponents();
-        play=true;
+        play = true;
         this.setBounds(0, 0, 300, 300);
         this.setBackground(Color.MAGENTA);
         this.setSize(500, 300);
@@ -41,10 +40,11 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable{
         this.setFocusable(true);
 
     }
-    
+
     /**
      * método para dibujar en el panel
-     * @param g 
+     *
+     * @param g
      */
     @Override
     public void paint(Graphics g) {
@@ -57,23 +57,22 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable{
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         paintBalls(g2d);
-        
-        
+
         Thread hilo = new Thread(this);
-        if(play){                   
-        hilo.start();
-        }else{
+        if (play) {
+            hilo.start();
+        } else {
             hilo.interrupt();
         }
-       
+
         try {
             Thread.sleep(15);
         } catch (InterruptedException ex) {
             Logger.getLogger(PanelGrafico.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         repaint();
-            
+
     }
 
     /**
@@ -88,40 +87,43 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable{
         setBackground(new java.awt.Color(0, 0, 0));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * método que gestiona hilo
      */
     @Override
     public void run() {
-       moveBalls(balls);
+        moveBalls(balls);
     }
-    
+
     /**
      * método que crea una lista de pelotas con valores aleatorios
-     * @param numberBalls 
+     *
+     * @param numberBalls
      */
     private void createBalls(int numberBalls) {
         for (int j = 0; j < numberBalls; j++) {
-            balls.add(new Ball(this, (int) (Math.random() * (this.getWidth()-30)),
-                     (int) (Math.random() * (this.getHeight()-30)),
+            balls.add(new Ball(this, (int) (Math.random() * (this.getWidth() - 30)),
+                    (int) (Math.random() * (this.getHeight() - 30)),
                     new Color((int) ((Math.random() * 255)), (int) (Math.random() * 255), (int) (Math.random() * 255))));
         }
     }
-    
+
     /**
      * metodo que agrega las pelotas al panel
-     * @param g2d 
+     *
+     * @param g2d
      */
     private void paintBalls(Graphics2D g2d) {
         for (Ball ball : balls) {
             ball.paint(g2d);
         }
     }
-    
+
     /**
      * metodo para mover las pelotas
-     * @param balls 
+     *
+     * @param balls
      */
     private void moveBalls(ArrayList<Ball> balls) {
         for (int i = 0; i < balls.size(); i++) {
@@ -131,12 +133,13 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable{
             balls.get(i).move();
         }
     }
-    
+
     /**
      * método para pausar o poner en play el juego
-     * @param play 
+     *
+     * @param play
      */
-    public void setPlay(boolean play){
+    public void setPlay(boolean play) {
         this.play = play;
     }
 
