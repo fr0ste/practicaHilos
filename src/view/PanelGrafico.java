@@ -24,6 +24,8 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable {
     private boolean play;
     private ImageIcon fondo;
     private final ArrayList<Ball> balls = new ArrayList<>();
+    private final int nBalls = 3;
+    private int velocidad;
 
     /**
      * constructor
@@ -34,8 +36,8 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable {
         this.setBounds(0, 0, 300, 300);
         this.setBackground(Color.MAGENTA);
         this.setSize(500, 300);
-
-        createBalls(3);
+        velocidad = 1;
+        createBalls(nBalls);
 
         this.setFocusable(true);
 
@@ -66,7 +68,7 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable {
         }
 
         try {
-            Thread.sleep(15);
+            Thread.sleep(velocidad);
         } catch (InterruptedException ex) {
             Logger.getLogger(PanelGrafico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,6 +143,15 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable {
      */
     public void setPlay(boolean play) {
         this.play = play;
+    }
+    
+    //getter and setters
+    public int getVelocidad() {
+        return velocidad;
+    }
+
+    public void setVelocidad(int velocidad) {
+        this.velocidad = velocidad;
     }
 
 

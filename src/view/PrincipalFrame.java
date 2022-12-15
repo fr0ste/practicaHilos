@@ -30,13 +30,14 @@ public class PrincipalFrame extends javax.swing.JFrame {
         background = new javax.swing.JPanel();
         btnPause = new javax.swing.JLabel();
         btnPlay = new javax.swing.JLabel();
+        jSlider1 = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setBackground(new java.awt.Color(0, 0, 0));
 
-        btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pngkit_pause-png_1156423.png"))); // NOI18N
+        btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pause.png"))); // NOI18N
         btnPause.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPause.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -47,7 +48,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
-        btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/play(2).png"))); // NOI18N
+        btnPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/play.png"))); // NOI18N
         btnPlay.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPlay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -58,15 +59,34 @@ public class PrincipalFrame extends javax.swing.JFrame {
             }
         });
 
+        jSlider1.setMaximum(10);
+        jSlider1.setMinimum(1);
+        jSlider1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSlider1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jSlider1MousePressed(evt);
+            }
+        });
+        jSlider1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jSlider1PropertyChange(evt);
+            }
+        });
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addGap(141, 141, 141)
-                .addComponent(btnPlay)
-                .addGap(100, 100, 100)
-                .addComponent(btnPause)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(btnPlay)
+                        .addGap(100, 100, 100)
+                        .addComponent(btnPause)))
                 .addContainerGap(130, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
@@ -76,7 +96,9 @@ public class PrincipalFrame extends javax.swing.JFrame {
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnPause)
                     .addComponent(btnPlay))
-                .addGap(0, 105, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 51, Short.MAX_VALUE))
         );
 
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, -1));
@@ -120,6 +142,20 @@ public class PrincipalFrame extends javax.swing.JFrame {
         Sound.mousePass();
     }//GEN-LAST:event_btnPauseMouseEntered
 
+    private void jSlider1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MouseClicked
+        
+    }//GEN-LAST:event_jSlider1MouseClicked
+
+    private void jSlider1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MousePressed
+       
+    }//GEN-LAST:event_jSlider1MousePressed
+
+    private void jSlider1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSlider1PropertyChange
+       
+            panelGrafico.setVelocidad(jSlider1.getValue());
+        
+    }//GEN-LAST:event_jSlider1PropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -159,5 +195,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JLabel btnPause;
     private javax.swing.JLabel btnPlay;
+    private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
 }
