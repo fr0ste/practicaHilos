@@ -36,7 +36,7 @@ public class PanelGrafico extends javax.swing.JPanel implements Runnable {
         this.setBounds(0, 0, 300, 300);
         this.setBackground(Color.MAGENTA);
         this.setSize(500, 300);
-        velocidad = 1;
+        velocidad = 10;
         createBalls(nBalls);
 
         this.setFocusable(true);

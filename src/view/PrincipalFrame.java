@@ -65,14 +65,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jSlider1MouseClicked(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jSlider1MousePressed(evt);
-            }
-        });
-        jSlider1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jSlider1PropertyChange(evt);
-            }
         });
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
@@ -141,20 +133,14 @@ public class PrincipalFrame extends javax.swing.JFrame {
     private void btnPauseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPauseMouseEntered
         Sound.mousePass();
     }//GEN-LAST:event_btnPauseMouseEntered
-
+    
+    /**
+     * agrega velocidad
+     * @param evt 
+     */
     private void jSlider1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MouseClicked
-        
+        panelGrafico.setVelocidad(jSlider1.getValue());
     }//GEN-LAST:event_jSlider1MouseClicked
-
-    private void jSlider1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MousePressed
-       
-    }//GEN-LAST:event_jSlider1MousePressed
-
-    private void jSlider1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSlider1PropertyChange
-       
-            panelGrafico.setVelocidad(jSlider1.getValue());
-        
-    }//GEN-LAST:event_jSlider1PropertyChange
 
     /**
      * @param args the command line arguments
